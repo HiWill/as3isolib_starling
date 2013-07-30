@@ -3,6 +3,8 @@ as3isolib starling
 
 as3isolib starling port  
 
+change namespace to 'as3isolibstarling'
+
 (IsoDrawingUtil not available)
 
 
