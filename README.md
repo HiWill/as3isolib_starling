@@ -3,7 +3,20 @@ as3isolib starling
 
 as3isolib starling port  
 
-（IsoDrawingUtil not available)
+(IsoDrawingUtil not available)
+
+add class IsoImage;
+usage:
+        var isoImage:IsoImage  = new IsoImage();
+  			isoImage.image = starlingImage;
+				isoImage.setSize(8 , 8 , 8);
+				isoImage.moveTo(8, 8, 0);
+				isoControl.isoScene.addChild(isoImage);
+
+
+
+
+
 
 used by 
 
