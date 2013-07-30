@@ -10,9 +10,8 @@ package as3isolibstarling.display
 	 */
 	public class IsoImage extends IsoDisplayObject 
 	{
-		public function IsoImage(vImage:Image,descriptor:Object = null ) 
+		public function IsoImage(descriptor:Object = null ) 
 		{
-			mainContainer = vImage;
 			super(descriptor);
 		}
 		public function get image():Image
@@ -21,29 +20,35 @@ package as3isolibstarling.display
 		}
 		public function set image(vImage:Image):void
 		{
-			if (mainContainer && mainContainer.parent )
+			if (mainContainer == null)
 			{
-				if ( vImage != mainContainer)
+				updateImage(vImage);
+			}
+			else if (mainContainer && vImage != mainContainer)
+			{
+				if (mainContainer.parent)
 				{
 					var temp:DisplayObjectContainer = mainContainer.parent;
 					var tempIndex:int = temp.getChildIndex(mainContainer);
-				    temp.removeChild(mainContainer);
+					temp.removeChild(mainContainer);
 					vImage.x = mainContainer.x;
 					vImage.y = mainContainer.y;
-					mainContainer = vImage;
-					temp.addChildAt(mainContainer, tempIndex); 
+					temp.addChildAt(vImage, tempIndex); 
 				} 
+				updateImage(vImage);
 			}
+		}
+		private function updateImage(vImage:Image):void
+		{
+			mainContainer = vImage;
+			createChildren();
+			proxyTarget = mainContainer;
 		}
 		/**
 		 * @inheritDoc
 		 */
 		override protected function createChildren():void
 		{
-			if (mainContainer == null)
-			{
-				throw new Error( "mainContainer is null" );
-			}
 			attachMainContainerEventListeners();
 		}
 	}
